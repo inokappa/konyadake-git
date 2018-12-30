@@ -4,7 +4,7 @@
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/vhWaC9i7Eko/0.jpg)](https://www.youtube.com/watch?v=vhWaC9i7Eko)
 
-今夜だけきっと, 今夜だけ git...
+[今夜だけきっと (STARDUSTREVUE)](https://www.youtube.com/watch?v=vhWaC9i7Eko), 今夜だけ git...
 
 * [go-git](https://github.com/src-d/go-git) の勉強の為に作った
 * `git clone` と `git checkout` が出来る

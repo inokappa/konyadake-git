@@ -33,6 +33,13 @@ var (
 	argBranch     = flag.String("branch", "", "Git Repository のブランチ名を指定.")
 )
 
+func getUser(repo_url string) string {
+	u := strings.Split(repo_url, "@")
+	user := strings.Join(u[:1], "")
+
+	return user
+}
+
 func repoDirectory(repo_url string) string {
 	r := strings.Split(repo_url, "/")
 	n := r[len(r)-1]
@@ -74,12 +81,13 @@ func gitClone(repo string, repo_username string, repo_directory string) *git.Rep
 		}
 	} else {
 		repo_url = repo
+		username := getUser(repo_url)
 		currentUser, err := user.Current()
 		if err != nil {
 			fmt.Printf("\x1b[31;1mError : %s\x1b[0m\n", err)
 			os.Exit(1)
 		}
-		sshAuth, err := ssh.NewPublicKeysFromFile("git", currentUser.HomeDir+"/.ssh/id_rsa", "")
+		sshAuth, err := ssh.NewPublicKeysFromFile(username, currentUser.HomeDir+"/.ssh/id_rsa", "")
 		if err != nil {
 			fmt.Printf("\x1b[31;1mError : %s\x1b[0m\n", err)
 			os.Exit(1)

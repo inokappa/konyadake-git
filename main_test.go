@@ -19,6 +19,14 @@ import (
 // 	}
 // }
 
+func TestGetUser(t *testing.T) {
+	repo := "git@github.com:inokappa/example.git"
+	result := getUser(repo)
+	if result != "git" {
+		t.Fatalf("Failed test")
+	}
+}
+
 func TestRepoDirectory(t *testing.T) {
 	repo := "git@github.com:inokappa/example.git"
 	result := repoDirectory(repo)

@@ -2,6 +2,10 @@
 
 ## これなに
 
+![](https://youtu.be/vhWaC9i7Eko)
+
+今夜だけきっと, 今夜だけ git...
+
 * [go-git](https://github.com/src-d/go-git) の勉強の為に作った
 * `git clone` と `git checkout` が出来る
 

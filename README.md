@@ -10,11 +10,11 @@
 ### clone
 
 ```sh
-konyadake -repo=git@github.com:inokappa/example.git
+konyadake -repo=git@github.com:your-name/example.git
 ```
 
 ```sh
-konyadake -repo=https://github.com/inokappa/example.git
+konyadake -repo=https://github.com/your-name/example.git
 ```
 
 ```sh
@@ -28,7 +28,7 @@ konyadake -repo=https://user.git.backlog.jp/YOUR-PJ/example.git -username=userna
 ### checkout
 
 ```sh
-konyadake -repo=git@github.com:inokappa/example.git -branch=develop
+konyadake -repo=git@github.com:your-name/example.git -branch=develop
 ```
 
 ## example

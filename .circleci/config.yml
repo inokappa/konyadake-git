@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/inokappa/konyadake-git
+    steps:
+      - checkout
+      - run: go get -u golang.org/x/lint/golint github.com/golang/dep/cmd/dep
+      - run: golint ./...
+      - run: go vet ./...
+      - run: dep ensure
+      - run: go test -v ./...

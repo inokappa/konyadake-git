@@ -11,12 +11,13 @@ import (
 	"net/url"
 	"os"
 	"os/user"
+	"regexp"
 	"strings"
 	"syscall"
 )
 
 const (
-	AppVersion   = "0.0.1"
+	AppVersion   = "0.0.2"
 	InfoColor    = "\033[1;34m%s\033[0m"
 	NoticeColor  = "\033[1;36m%s\033[0m"
 	WarningColor = "\033[1;33m%s\033[0m"
@@ -32,14 +33,33 @@ var (
 	argBranch     = flag.String("branch", "", "Git Repository のブランチ名を指定.")
 )
 
+func repoDirectory(repo_url string) string {
+	r := strings.Split(repo_url, "/")
+	n := r[len(r)-1]
+	d := strings.Split(n, ".")
+	directory := strings.Join(d[:1], "")
+
+	return directory
+}
+
+func isGitUrl(repo_url string) bool {
+	r := regexp.MustCompile(`(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$`)
+	return r.MatchString(repo_url)
+}
+
 func gitClone(repo string, repo_username string, repo_directory string) *git.Repository {
 	var repo_url string
+	var directory string
 	var clone_options *git.CloneOptions
 
-	directory := repo_directory
+	if repo_directory != "" {
+		directory = repo_directory
+	} else {
+		directory = repoDirectory(repo)
+	}
 
-	if strings.Contains(repo, "backlog") && repo_username != "" {
-		fmt.Println("Please Input Your Backlog User Password:")
+	if repo_username != "" {
+		fmt.Println("Please Input Your Password:")
 		password, err := terminal.ReadPassword(int(syscall.Stdin))
 		if err != nil {
 			fmt.Printf("\x1b[31;1mError : %s\x1b[0m\n", err)
@@ -123,13 +143,14 @@ func main() {
 		os.Exit(0)
 	}
 
-	if *argRepository != "" && *argDirectory != "" {
+	// if *argRepository != "" && *argDirectory != "" {
+	if *argRepository != "" || isGitUrl(*argRepository) {
 		r := gitClone(*argRepository, *argUsername, *argDirectory)
 		if *argBranch != "" {
 			gitCheckOut(r, *argBranch)
 		}
 	} else {
-		emoji.Println(":bangbang: Git リポジトリと保存先のディレクトリを指定して下さい.")
+		emoji.Println(":bangbang: Git リポジトリを指定して下さい.")
 		os.Exit(1)
 	}
 }

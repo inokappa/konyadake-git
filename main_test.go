@@ -58,3 +58,27 @@ func TestIsGitUrlFalse(t *testing.T) {
 		t.Fatalf("Failed test")
 	}
 }
+
+func TestStartWithHttpHTTPSTrue(t *testing.T) {
+	repo := "https://github.com/inokappa/example.git"
+	result := startWithHttp(repo)
+	if result != true {
+		t.Fatalf("Failed test")
+	}
+}
+
+func TestStartWithHttpHTTPTrue(t *testing.T) {
+	repo := "http://github.com/inokappa/example.git"
+	result := startWithHttp(repo)
+	if result != true {
+		t.Fatalf("Failed test")
+	}
+}
+
+func TestStartWithHttpFalse(t *testing.T) {
+	repo := "git@github.com:inokappa/example.git"
+	result := startWithHttp(repo)
+	if result != false {
+		t.Fatalf("Failed test")
+	}
+}

@@ -11,4 +11,4 @@ build: ## バイナリをビルドする
 	@./build.sh
 
 release: ## バイナリをリリースする. 引数に `_VER=バージョン番号` を指定する.
-	@ghr -u inokappa -r konyadake v${_VER} ./pkg/
+	@ghr -u inokappa -r konyadake-git v${_VER} ./pkg/

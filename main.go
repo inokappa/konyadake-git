@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	AppVersion   = "0.0.2"
+	AppVersion   = "0.0.3"
 	InfoColor    = "\033[1;34m%s\033[0m"
 	NoticeColor  = "\033[1;36m%s\033[0m"
 	WarningColor = "\033[1;33m%s\033[0m"
@@ -49,6 +49,14 @@ func repoDirectory(repo_url string) string {
 	return directory
 }
 
+func startWithHttp(repo_url string) bool {
+	if strings.HasPrefix(repo_url, "http") || strings.HasPrefix(repo_url, "https") {
+		return true
+	} else {
+		return false
+	}
+}
+
 func isGitUrl(repo_url string) bool {
 	r := regexp.MustCompile(`(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$`)
 	return r.MatchString(repo_url)
@@ -75,6 +83,12 @@ func gitClone(repo string, repo_username string, repo_directory string) *git.Rep
 		u, _ := url.Parse(repo)
 		username_password := repo_username + ":" + string(password)
 		repo_url = u.Scheme + "://" + username_password + "@" + u.Host + u.Path
+		clone_options = &git.CloneOptions{
+			URL:      repo_url,
+			Progress: os.Stdout,
+		}
+	} else if repo_username == "" && startWithHttp(repo) {
+		repo_url = repo
 		clone_options = &git.CloneOptions{
 			URL:      repo_url,
 			Progress: os.Stdout,

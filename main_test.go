@@ -1,9 +1,9 @@
 package main
 
 import (
-	"bytes"
+	_ "bytes"
 	_ "fmt"
-	"os/exec"
+	_ "os/exec"
 	"strings"
 	"testing"
 )

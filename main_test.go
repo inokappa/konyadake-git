@@ -8,16 +8,16 @@ import (
 	"testing"
 )
 
-func TestHelpFlag(t *testing.T) {
-	cmd := exec.Command("gom", "run", "main.go", "-help")
-	stdout := new(bytes.Buffer)
-	cmd.Stderr = stdout
-	msg := "バージョンを出力."
-	_ = cmd.Run()
-	if !strings.Contains(stdout.String(), msg) {
-		t.Fatal("Failed Test")
-	}
-}
+// func TestHelpFlag(t *testing.T) {
+// 	cmd := exec.Command("gom", "run", "main.go", "-help")
+// 	stdout := new(bytes.Buffer)
+// 	cmd.Stderr = stdout
+// 	msg := "バージョンを出力."
+// 	_ = cmd.Run()
+// 	if !strings.Contains(stdout.String(), msg) {
+// 		t.Fatal("Failed Test")
+// 	}
+// }
 
 // func TestNoRepoName(t *testing.T) {
 // 	cmd := exec.Command("gom", "run", "main.go")
